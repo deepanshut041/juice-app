@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Image, View, TextInput, StyleSheet, Button } from 'react-native';
+import { Image, View, SafeAreaView } from 'react-native';
+import { Layout, Text, Button, Input } from '@ui-kitten/components';
+import { styles } from './styles';
 
 export default class SignInScreen extends Component {
   state = {
@@ -15,37 +17,67 @@ export default class SignInScreen extends Component {
     this.setState({ password: text })
   }
 
-  login = (email: string, pass: string) => {
-    alert('email: ' + email + ' password: ' + pass)
+  login = () => {
+    alert('email: ' + this.state.email + ' password: ' + this.state.password)
+  }
+
+  goToForgotPassword = () => {
+    this.props.navigation.navigate('ForgotPassword')
+  }
+
+  goToSignUp = () => {
+    this.props.navigation.navigate('SignUp')
   }
 
   render() {
+    const { email, password } = this.state;
+
     return (
-      <View style={styles.container}>
-        <Image style={styles.image} source={require("../../assets/logo_light.png")} />
-        <View>
-          <TextInput style={styles.input} placeholder="Email" autoCapitalize="none" onChangeText={this.handleEmailChange} />
-          <TextInput style={styles.input} placeholder="Password" autoCapitalize="none" onChangeText={this.handlePasswordChange} secureTextEntry />
-          <Button onPress={() => this.login(this.state.email, this.state.password)} title="Submit" />
-        </View>
-      </View>
-    )
+      <SafeAreaView style={{ flex: 1 }}>
+        <Layout style={styles.screen}>
+          <Image style={styles.image} source={require('../../assets/logo_light.png')} />
+          <Input
+            value={email}
+            onChangeText={this.handleEmailChange}
+            placeholder="Email"
+            size="large"
+            style={styles.input}
+            keyboardType="email-address"
+            textStyle={styles.text}
+            autoCapitalize="none"
+          />
+          <Input
+            value={password}
+            onChangeText={this.handlePasswordChange}
+            placeholder="Password"
+            size="large"
+            style={styles.input}
+            secureTextEntry={true}
+            textStyle={styles.text}
+            autoCapitalize="none"
+          />
+
+          <Text
+            style={[styles.textRight, styles.boldText]}
+            onPress={this.goToForgotPassword} status="info">
+            Forgot password?
+        </Text>
+
+          <Button style={styles.actionButon} onPress={this.login} size="large">
+            LOGIN
+        </Button>
+
+          <View style={styles.buttons}>
+            <Button style={styles.button} appearance='outline'></Button>
+            <Button style={styles.button} appearance='outline'></Button>
+          </View>
+
+          <Text style={styles.textCenter} onPress={this.goToSignUp}>
+            Don't have an account?
+          <Text style={[styles.textCenter, styles.boldText]} status="info"> SignUp </Text>
+          </Text>
+        </Layout>
+
+      </SafeAreaView>)
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-    backgroundColor: '#ffffff',
-    justifyContent: 'center',
-    alignItems:'center'
-  },
-  image: {
-    resizeMode: "contain",
-    width: 200,
-  },
-  input: {
-    margin: 15
-  }
-})

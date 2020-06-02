@@ -1,12 +1,90 @@
 import React, { Component } from 'react';
-import { Button, View, Text } from 'react-native';
+import { Image, View, SafeAreaView } from 'react-native';
+import { Layout, Text, Button, Input } from '@ui-kitten/components';
+import { styles } from './styles';
 
 export default class SignUpScreen extends Component {
+  state = {
+    email: '',
+    password: '',
+    name: '',
+    confirm_password: ''
+  }
+
+  handleEmailChange = (text: string) => {
+    this.setState({ email: text })
+  }
+
+  handleNameChange = (text: string) => {
+    this.setState({ name: text })
+  }
+
+  handlePasswordChange = (text: string) => {
+    this.setState({ password: text })
+  }
+
+  handleConfirmPasswordChange = (text: string) => {
+    this.setState({ confirm_password: text })
+  }
+
+  signUp = () => {
+    alert('email: ' + this.state.email + ' password: ' + this.state.password)
+  }
+
+  goToSignIn = () => {
+    this.props.navigation.navigate('SignIn')
+  }
+
   render() {
+    const { email, password, name, confirm_password} = this.state;
+
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>SignIn Screen</Text>
-      </View>
-    )
+      <SafeAreaView style={{ flex: 1 }}>
+        <Layout style={styles.screen}>
+          <Image style={styles.image} source={require('../../assets/logo_light.png')} />
+          <Input
+            value={name}
+            onChangeText={this.handleNameChange}
+            placeholder="Full Name"
+            size="large"
+            style={styles.input}
+          />
+          <Input
+            value={email}
+            onChangeText={this.handleEmailChange}
+            placeholder="Email"
+            size="large"
+            style={styles.input}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+          <Input
+            value={password}
+            onChangeText={this.handlePasswordChange}
+            placeholder="Password"
+            size="large"
+            style={styles.input}
+            secureTextEntry={true}
+            autoCapitalize="none"
+          />
+
+          <Input
+            value={confirm_password}
+            onChangeText={this.handleConfirmPasswordChange}
+            placeholder="Confirm Password"
+            size="large"
+            style={styles.input}
+            secureTextEntry={true}
+            autoCapitalize="none"
+          />
+
+          <Button style={styles.actionButon} onPress={this.signUp} size="large">SIGN UP</Button>
+
+          <Text style={[styles.textCenter, {marginTop: 30}]} onPress={this.goToSignIn}>
+            Already have an account?
+          <Text style={[styles.textCenter, styles.boldText]} status="info"> SignIn </Text>
+          </Text>
+        </Layout>
+      </SafeAreaView>)
   }
 }

@@ -3,6 +3,10 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider as ReduxProvider } from "react-redux"
+import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
+import * as eva from "@eva-design/eva";
+import { EvaIconsPack } from "@ui-kitten/eva-icons";
+
 import SignInScreen from './features/auth/SignInScreen';
 import SignUpScreen from './features/auth/SignUpScreen';
 import HomeScreen from "./features/home/HomeScreen";
@@ -10,7 +14,9 @@ import AboutScreen from "./features/extras/AboutScreen";
 import ProfileScreen from './features/profile/ProfileScreen';
 import ResetPasswordScreen from './features/auth/ResetPasswordScreen';
 import ForgotPasswordScreen from './features/auth/ForgotPasswordScreen';
+
 import { store } from './data/store';
+import { setupHttpConfig } from './data/utils/http';
 
 const Stack = createStackNavigator();
 
@@ -19,6 +25,11 @@ export default class App extends Component {
   state = {
     userToken: null,
     isLoading: true
+  }
+
+  constructor(props:any){
+    super(props);
+    setupHttpConfig()
   }
 
   componentDidMount() {
@@ -34,24 +45,27 @@ export default class App extends Component {
     return (
 
       <ReduxProvider store={store}>
-        <NavigationContainer>
-          <Stack.Navigator>
-            {!this.state.userToken ? (
-              <>
-                <Stack.Screen name="SignIn" component={SignInScreen} />
-                <Stack.Screen name="SignUp" component={SignUpScreen} />
-                <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
-                <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
-              </>
-            ) : (
+        <IconRegistry icons={EvaIconsPack} />
+        <ApplicationProvider {...eva} theme={eva.light}>
+          <NavigationContainer>
+            <Stack.Navigator>
+              {!this.state.userToken ? (
                 <>
-                  <Stack.Screen name="Home" component={HomeScreen} />
-                  <Stack.Screen name="About" component={AboutScreen} />
-                  <Stack.Screen name="Profile" component={ProfileScreen} />
+                  <Stack.Screen name="SignIn" component={SignInScreen} />
+                  <Stack.Screen name="SignUp" component={SignUpScreen} />
+                  <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
+                  <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
                 </>
-              )}
-          </Stack.Navigator>
-        </NavigationContainer>
+              ) : (
+                  <>
+                    <Stack.Screen name="Home" component={HomeScreen} />
+                    <Stack.Screen name="About" component={AboutScreen} />
+                    <Stack.Screen name="Profile" component={ProfileScreen} />
+                  </>
+                )}
+            </Stack.Navigator>
+          </NavigationContainer>
+        </ApplicationProvider>
       </ReduxProvider>
     );
   }
