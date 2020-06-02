@@ -7,6 +7,8 @@ import SignUpScreen from './components/auth/SignUpScreen';
 import  HomeScreen  from "./components/HomeScreen";
 import  AboutScreen  from "./components/AboutScreen";
 import ProfileScreen from './components/ProfileScreen';
+import ResetPasswordScreen from './components/auth/ResetPasswordScreen';
+import ForgotPasswordScreen from './components/auth/ForgotPasswordScreen';
 
 const Stack = createStackNavigator();
 
@@ -15,10 +17,12 @@ export default class App extends Component {
     return (
       <NavigationContainer>
         <Stack.Navigator>
-          { false ? (
+          { true ? (
             <>
-              <Stack.Screen name="SignIn" component={SignInScreen} />
               <Stack.Screen name="SignUp" component={SignUpScreen} />
+              <Stack.Screen name="SignIn" component={SignInScreen} />
+              <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
+              <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
             </>
           ) : (
               <>
