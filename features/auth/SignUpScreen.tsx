@@ -31,10 +31,6 @@ export default class SignUpScreen extends Component {
     alert('email: ' + this.state.email + ' password: ' + this.state.password)
   }
 
-  goToSignIn = () => {
-    this.props.navigation.navigate('SignIn')
-  }
-
   render() {
     const { email, password, name, confirm_password} = this.state;
 
@@ -79,11 +75,6 @@ export default class SignUpScreen extends Component {
           />
 
           <Button style={styles.actionButon} onPress={this.signUp} size="large">SIGN UP</Button>
-
-          <Text style={[styles.textCenter, {marginTop: 30}]} onPress={this.goToSignIn}>
-            Already have an account?
-          <Text style={[styles.textCenter, styles.boldText]} status="info"> SignIn </Text>
-          </Text>
         </Layout>
       </SafeAreaView>)
   }

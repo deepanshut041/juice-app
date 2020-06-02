@@ -4,8 +4,7 @@ import { scale, scaleVertical } from "../utils/scale";
 export const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        flexDirection: "column",
-        justifyContent: 'center'
+        flexDirection: "column"
     },
     input: {
         marginLeft: scale(15),
@@ -28,6 +27,7 @@ export const styles = StyleSheet.create({
         resizeMode: "contain",
         height: 100,
         marginBottom: scaleVertical(30),
+        marginTop: scaleVertical(50),
     },
 
     textCenter: {
