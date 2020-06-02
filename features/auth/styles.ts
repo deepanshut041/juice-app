@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
     },
     image: {
         resizeMode: "contain",
-        height: 100,
+        height: 80,
         marginBottom: scaleVertical(50),
         marginTop: scaleVertical(50),
     },

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Image, View, SafeAreaView } from 'react-native';
-import { Layout, Text, Button, Input } from '@ui-kitten/components';
+import { Layout, Text, Button, Input, Icon } from '@ui-kitten/components';
 import { styles } from './styles';
 
 export default class SignInScreen extends Component {
@@ -29,6 +29,14 @@ export default class SignInScreen extends Component {
     this.props.navigation.navigate('SignUp')
   }
 
+  FacebookIcon = (props:any) => (
+    <Icon {...props} name='facebook' />
+  );
+
+  GoogleIcon = (props:any) => (
+    <Icon {...props} name='google'/>
+  );
+
   render() {
     const { email, password } = this.state;
 
@@ -53,7 +61,6 @@ export default class SignInScreen extends Component {
             size="large"
             style={styles.input}
             secureTextEntry={true}
-            textStyle={styles.text}
             autoCapitalize="none"
           />
 
@@ -68,8 +75,8 @@ export default class SignInScreen extends Component {
         </Button>
 
           <View style={styles.buttons}>
-            <Button style={styles.button} appearance='outline'></Button>
-            <Button style={styles.button} appearance='outline'></Button>
+            <Button style={styles.button} appearance='outline' accessoryLeft={this.FacebookIcon}></Button>
+            <Button style={styles.button} appearance='outline' accessoryLeft={this.GoogleIcon}></Button>
           </View>
 
           <Text style={styles.textCenter} onPress={this.goToSignUp}>

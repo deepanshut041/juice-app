@@ -29,7 +29,7 @@ export default class App extends Component {
     isLoading: true
   }
 
-  constructor(props:any){
+  constructor(props: any) {
     super(props);
     setupHttpConfig()
   }
@@ -48,12 +48,12 @@ export default class App extends Component {
 
       <ReduxProvider store={store}>
         <IconRegistry icons={EvaIconsPack} />
-        <ApplicationProvider {...eva} theme={{...eva.light, ...myTheme}}>
+        <ApplicationProvider {...eva} theme={{ ...eva.light, ...myTheme }}>
           <NavigationContainer>
             <Stack.Navigator>
               {!this.state.userToken ? (
                 <>
-                  <Stack.Screen name="SignIn" component={SignInScreen} options={{ title: 'SIGN IN' }} />
+                  <Stack.Screen name="SignIn" component={SignInScreen} options={{ title: 'SIGN IN', headerTitleStyle: { alignSelf: 'center' } }} />
                   <Stack.Screen name="SignUp" component={SignUpScreen} options={{ title: 'SIGN UP' }} />
                   <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} options={{ title: 'RESET PASSWORD' }} />
                   <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ title: 'FORGOT PASSWORD' }} />
