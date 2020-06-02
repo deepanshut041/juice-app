@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import SignInScreen from './components/auth/SignInScreen';
-import SignUpScreen from './components/auth/SignUpScreen';
-import HomeScreen from "./components/HomeScreen";
-import AboutScreen from "./components/AboutScreen";
-import ProfileScreen from './components/ProfileScreen';
-import ResetPasswordScreen from './components/auth/ResetPasswordScreen';
-import ForgotPasswordScreen from './components/auth/ForgotPasswordScreen';
-import SplashScreen from './components/SplashScreen';
+import SignInScreen from './features/auth/SignInScreen';
+import SignUpScreen from './features/auth/SignUpScreen';
+import HomeScreen from "./features/home/HomeScreen";
+import AboutScreen from "./features/extras/AboutScreen";
+import ProfileScreen from './features/profile/ProfileScreen';
+import ResetPasswordScreen from './features/auth/ResetPasswordScreen';
+import ForgotPasswordScreen from './features/auth/ForgotPasswordScreen';
 
 const Stack = createStackNavigator();
 
@@ -20,9 +19,15 @@ export default class App extends Component {
     isLoading: true
   }
 
+  componentDidMount() {
+    AsyncStorage.getItem("access-token", (err, res) => {
+      this.setState({ userToken: (err) ? null : res, isLoading: false })
+    })
+  }
+
   render() {
     if (this.state.isLoading) {
-      return <SplashScreen />;
+      return null
     }
     return (
       <NavigationContainer>
