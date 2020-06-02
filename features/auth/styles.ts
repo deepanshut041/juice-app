@@ -12,9 +12,7 @@ export const styles = StyleSheet.create({
         marginTop: scaleVertical(5),
         marginBottom: scaleVertical(5)
     },
-
     actionButon: {
-        borderWidth: 0,
         marginLeft: scale(15),
         marginRight: scale(15),
         paddingTop: scaleVertical(15),
@@ -22,23 +20,19 @@ export const styles = StyleSheet.create({
         marginTop: scaleVertical(10),
         marginBottom: scaleVertical(10)
     },
-
     image: {
         resizeMode: "contain",
         height: 100,
-        marginBottom: scaleVertical(30),
+        marginBottom: scaleVertical(50),
         marginTop: scaleVertical(50),
     },
-
     textCenter: {
         textAlign: "center"
     },
-
     textRight: {
         textAlign: "right",
         marginEnd: scale(15)
     },
-
     boldText: {
         fontWeight: 'bold'
     },

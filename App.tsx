@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { Provider as ReduxProvider } from "react-redux"
+import { Provider as ReduxProvider } from "react-redux";
+
 import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
 import * as eva from "@eva-design/eva";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
+import { myTheme } from "./custom-theme";
 
 import SignInScreen from './features/auth/SignInScreen';
 import SignUpScreen from './features/auth/SignUpScreen';
@@ -46,15 +48,15 @@ export default class App extends Component {
 
       <ReduxProvider store={store}>
         <IconRegistry icons={EvaIconsPack} />
-        <ApplicationProvider {...eva} theme={eva.light}>
+        <ApplicationProvider {...eva} theme={{...eva.light, ...myTheme}}>
           <NavigationContainer>
             <Stack.Navigator>
               {!this.state.userToken ? (
                 <>
-                  <Stack.Screen name="SignIn" component={SignInScreen} />
-                  <Stack.Screen name="SignUp" component={SignUpScreen} />
-                  <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
-                  <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+                  <Stack.Screen name="SignIn" component={SignInScreen} options={{ title: 'SIGN IN' }} />
+                  <Stack.Screen name="SignUp" component={SignUpScreen} options={{ title: 'SIGN UP' }} />
+                  <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} options={{ title: 'RESET PASSWORD' }} />
+                  <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ title: 'FORGOT PASSWORD' }} />
                 </>
               ) : (
                   <>
