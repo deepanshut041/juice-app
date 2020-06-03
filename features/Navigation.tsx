@@ -6,9 +6,8 @@ import AuthStack from './auth/AuthStack';
 
 import { createStackNavigator, } from '@react-navigation/stack';
 
-import HomeScreen from "./home/HomeScreen";
+import HomeStack from "./home/HomeStack";
 import AboutScreen from "./extras/AboutScreen";
-import ProfileScreen from './profile/ProfileScreen';
 
 const Stack = createStackNavigator();
 
@@ -43,9 +42,8 @@ class Navigation extends Component<any> {
                             AuthStack()
                         ) : (
                                 <Stack.Navigator>
-                                    <Stack.Screen name="Home" component={HomeScreen} />
+                                    <Stack.Screen name="Home" component={HomeStack} />
                                     <Stack.Screen name="About" component={AboutScreen} />
-                                    <Stack.Screen name="Profile" component={ProfileScreen} />
                                 </Stack.Navigator>
                             )
                         }
