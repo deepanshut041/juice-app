@@ -1,7 +1,7 @@
 import * as actions from "./constants";
 
 const initialState = {
-    isLoading: true,
+    isLoading: null,
     accessToken: null
 }
 

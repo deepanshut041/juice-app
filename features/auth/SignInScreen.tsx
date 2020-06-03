@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
-import { Image, View, SafeAreaView } from 'react-native';
+import { Image, View, SafeAreaView, ActivityIndicator } from 'react-native';
 import { Layout, Text, Button, Input, Icon } from '@ui-kitten/components';
 import { styles } from './styles';
 import { connect } from 'react-redux';
 import * as authActions from '../../data/auth/actions';
 import { SignInRequest } from '../../data/auth/types';
+
+const FacebookIcon = (props: any) => (
+  <Icon {...props} name='facebook' />
+);
+
+const GoogleIcon = (props: any) => (
+  <Icon {...props} name='google' />
+);
 
 class SignInScreen extends Component<any> {
 
@@ -32,14 +40,6 @@ class SignInScreen extends Component<any> {
   goToSignUp = () => {
     this.props.navigation.navigate('SignUp')
   }
-
-  FacebookIcon = (props: any) => (
-    <Icon {...props} name='facebook' />
-  );
-
-  GoogleIcon = (props: any) => (
-    <Icon {...props} name='google' />
-  );
 
   render() {
     const { email, password } = this.state;
@@ -78,8 +78,8 @@ class SignInScreen extends Component<any> {
         </Button>
 
           <View style={styles.buttons}>
-            <Button style={styles.button} appearance='outline' accessoryLeft={this.FacebookIcon}></Button>
-            <Button style={styles.button} appearance='outline' accessoryLeft={this.GoogleIcon}></Button>
+            <Button style={styles.button} appearance='outline' accessoryLeft={FacebookIcon}></Button>
+            <Button style={styles.button} appearance='outline' accessoryLeft={GoogleIcon}></Button>
           </View>
 
           <Text style={styles.textCenter}>
@@ -91,6 +91,11 @@ class SignInScreen extends Component<any> {
 
           </Text>
         </Layout>
+        {(this.props.loading) ?
+          <View style={styles.loading}>
+            <ActivityIndicator />
+          </View> : null
+        }
       </SafeAreaView>)
   }
 }
@@ -99,7 +104,7 @@ const mapStateToProps = (state: any) => {
   state = state.authReducer.signInReducer
   return {
     error: state.error,
-    success: state.success
+    loading: state.loading
   }
 };
 

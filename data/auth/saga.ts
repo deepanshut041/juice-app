@@ -23,10 +23,8 @@ function saveToken(token: string) {
     return AsyncStorage.setItem("ACCESS_TOKEN", token)
 }
 
-function sendForgotPassword(email: string) {
-    return request.post('/api/auth/forgot/', {
-        email: email
-    });
+function cleanToken() {
+    return AsyncStorage.clear()
 }
 
 function* handleSignIn(action: any) {
@@ -51,17 +49,17 @@ function* handleSignUp(action: any) {
     const { user: { email, password, name } } = action;
     const { status, data } = yield call(sendSignUp, email, password, name);
 
-    if (status === 200) {
-        yield put({
-            type: actions.AUTH_SIGNIN_SUCCESS,
-            accessToken: data.token,
-        });
-    } else {
-        yield put({
-            type: actions.AUTH_SIGNIN_ERROR,
-            error: 'Invalid Credentials',
-        });
-    }
+    // if (status === 200) {
+    //     yield put({
+    //         type: actions.AUTH_SIGNIN_SUCCESS,
+    //         accessToken: data.token,
+    //     });
+    // } else {
+    //     yield put({
+    //         type: actions.AUTH_SIGNIN_ERROR,
+    //         error: 'Invalid Credentials',
+    //     });
+    // }
 }
 
 function* handleForgotPassword(action: any) {
@@ -81,9 +79,14 @@ function* handleForgotPassword(action: any) {
     }
 }
 
+function* handleSignOut(action: any) {
+    yield call(cleanToken)
+}
+
 export default all([
     takeLatest(actions.AUTH_SIGNIN_REQUEST, handleSignIn),
     takeLatest(actions.AUTH_SIGNUP_REQUEST, handleSignUp),
     takeLatest(actions.AUTH_FORGOT_PASSWORD_REQUEST, handleForgotPassword),
+    takeLatest(actions.AUTH_SIGNOUT, handleSignOut),
 ]);
 

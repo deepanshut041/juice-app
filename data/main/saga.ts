@@ -7,10 +7,6 @@ function fetchToken() {
     return AsyncStorage.getItem("ACCESS_TOKEN")
 }
 
-function cleanToken() {
-    return AsyncStorage.clear()
-}
-
 function* handleFetchToken(action: any) {
     const token = yield call(fetchToken);
     yield put({

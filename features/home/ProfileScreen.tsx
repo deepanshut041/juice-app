@@ -2,18 +2,20 @@ import React, { Component } from 'react';
 import { Layout, Avatar, Text, Divider } from '@ui-kitten/components';
 import { Image, StyleSheet, View, Button } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import * as authActions from "../../data/auth/actions";
+import { connect } from 'react-redux';
 
-export default class ProfileScreen extends Component {
+class ProfileScreen extends Component<any> {
 
-  listTypeButton = (title: string) => {
+  listTypeButton = (title: string, fun: any) => {
     return (
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={fun}>
         <Text style={styles.buttonText} category='h6'>{title}</Text>
       </TouchableOpacity>)
   }
 
   onSignOut = () => {
-    alert("Signout Clicked")
+    this.props.signOut()
   }
 
   render() {
@@ -24,10 +26,10 @@ export default class ProfileScreen extends Component {
           <Text style={styles.avatarTitle} category='h4'>Deepanshu Tyagi</Text>
           <Text category='h6' style={styles.avatarLocation}>Monteral</Text>
         </Layout>
-        {this.listTypeButton("Payment Methods")}
-        {this.listTypeButton("Invite Friends")}
-        {this.listTypeButton("Settings")}
-        {this.listTypeButton("Sign Out")}
+        {this.listTypeButton("Payment Methods", this.onSignOut)}
+        {this.listTypeButton("Invite Friends", this.onSignOut)}
+        {this.listTypeButton("Settings", this.onSignOut)}
+        {this.listTypeButton("Sign Out", this.onSignOut)}
       </Layout>
     )
   }
@@ -66,3 +68,18 @@ const styles = StyleSheet.create({
     fontWeight:"bold"
   }
 });
+
+const mapStateToProps = (state: any) => ({
+  
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+  signOut: () => {
+    dispatch(authActions.signOut(null));
+  }
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProfileScreen);
