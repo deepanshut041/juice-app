@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import { Image, View, SafeAreaView } from 'react-native';
 import { Layout, Text, Button, Input, Icon } from '@ui-kitten/components';
 import { styles } from './styles';
+import { connect } from 'react-redux';
+import * as authActions from '../../data/auth/actions';
+import { SignInRequest } from '../../data/auth/types';
 
-export default class SignInScreen extends Component {
+class SignInScreen extends Component<any> {
+
   state = {
     email: '',
     password: ''
@@ -17,8 +21,8 @@ export default class SignInScreen extends Component {
     this.setState({ password: text })
   }
 
-  login = () => {
-    alert('email: ' + this.state.email + ' password: ' + this.state.password)
+  submitSignIn = () => {
+    this.props.signIn({ email: this.state.email, password: this.state.password });
   }
 
   goToForgotPassword = () => {
@@ -29,12 +33,12 @@ export default class SignInScreen extends Component {
     this.props.navigation.navigate('SignUp')
   }
 
-  FacebookIcon = (props:any) => (
+  FacebookIcon = (props: any) => (
     <Icon {...props} name='facebook' />
   );
 
-  GoogleIcon = (props:any) => (
-    <Icon {...props} name='google'/>
+  GoogleIcon = (props: any) => (
+    <Icon {...props} name='google' />
   );
 
   render() {
@@ -51,7 +55,6 @@ export default class SignInScreen extends Component {
             size="large"
             style={styles.input}
             keyboardType="email-address"
-            textStyle={styles.text}
             autoCapitalize="none"
           />
           <Input
@@ -70,7 +73,7 @@ export default class SignInScreen extends Component {
             Forgot password?
         </Text>
 
-          <Button style={styles.actionButon} onPress={this.login} size="large">
+          <Button style={styles.actionButon} onPress={this.submitSignIn} size="large">
             LOGIN
         </Button>
 
@@ -79,12 +82,34 @@ export default class SignInScreen extends Component {
             <Button style={styles.button} appearance='outline' accessoryLeft={this.GoogleIcon}></Button>
           </View>
 
-          <Text style={styles.textCenter} onPress={this.goToSignUp}>
+          <Text style={styles.textCenter}>
             Don't have an account?
-          <Text style={[styles.textCenter, styles.boldText]} status="info"> SignUp </Text>
+            <Text style={[styles.textCenter, styles.boldText]} status="info" onPress={this.goToSignUp}> SignUp </Text>
+          </Text>
+
+          <Text style={styles.textCenter}>
+
           </Text>
         </Layout>
-
       </SafeAreaView>)
   }
 }
+
+const mapStateToProps = (state: any) => {
+  state = state.authReducer.signInReducer
+  return {
+    error: state.error,
+    success: state.success
+  }
+};
+
+const mapDispatchToProps = (dispatch: any) => ({
+  signIn: (req: SignInRequest) => {
+    dispatch(authActions.signIn(req));
+  }
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SignInScreen);

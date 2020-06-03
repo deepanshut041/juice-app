@@ -1,20 +1,21 @@
 import * as actions from "./constants";
+import { SignInRequest, SignUpRequest, ForgotPasswordRequest } from "./types"
 
-export const signUp = (user: any) => ({
+export const signUp = (requestBody: SignUpRequest) => ({
     type: actions.AUTH_SIGNUP_REQUEST,
-    user
+    requestBody
 });
 
-export const signIn = (user: any) => ({
+export const signIn = (requestBody: SignInRequest) => ({
     type: actions.AUTH_SIGNIN_REQUEST,
-    user
+    requestBody
 });
 
 export const signOut = (_: any) => ({
     type: actions.AUTH_SIGNOUT
 });
 
-export const resetPassword = (email: any) => ({
-    type: actions.AUTH_PASSWORD_RECOVER_REQUEST,
-    email
+export const forgotPassword = (req: ForgotPasswordRequest) => ({
+    type: actions.AUTH_FORGOT_PASSWORD_REQUEST,
+    req
 });

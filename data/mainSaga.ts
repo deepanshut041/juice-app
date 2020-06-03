@@ -1,11 +1,10 @@
 import { all, takeEvery, take } from "redux-saga/effects";
-
-function* helloSaga(){
-    console.log("Hello From saga")
-}
+import AuthSaga from "./auth/saga";
+import MainSaga from "./main/saga"
 
 export function* mainSaga() {
     yield all([
-        takeEvery("Test/ALO", helloSaga)
+        MainSaga,
+        AuthSaga
     ]);
 }
