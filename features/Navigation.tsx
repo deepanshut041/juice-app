@@ -23,7 +23,7 @@ class Navigation extends Component<any> {
     }
 
     componentDidUpdate(prevProps: any, prevState: any) {
-        if (prevProps.isLoading ! == this.props.isLoading || prevProps.accessToken !== this.props.accessToken) {
+        if (prevProps.isLoading !== this.props.isLoading || prevProps.accessToken !== this.props.accessToken) {
             this.setState({
                 authToken: this.props.accessToken,
                 isLoading: this.props.isLoading
